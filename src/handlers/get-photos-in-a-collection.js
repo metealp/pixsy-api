@@ -1,23 +1,31 @@
-const { readAllPhotos } = require('../utils/lib')
+const { readATopicPhotos } = require('../utils/lib')
 
-exports.getCollectionsHandler = async (event) => {
+exports.getPhotosInACollectionHandler = async (event) => {
     if (event.httpMethod !== 'GET') {
         throw new Error(`getCollectionsHandler only accept GET method, you tried: ${event.httpMethod}`);
     }
 
-    let collections
+    let photos
     let response = {}
 
+    console.log('event.pathParameters', event.pathParameters)
+
     try {
-        collections = readAllPhotos()
+        photos = readATopicPhotos(event.pathParameters.topic_name)
         response = {
             statusCode: 200,
-            body: JSON.stringify({ collections })
+            body: JSON.stringify({ photos })
         }
     } catch (err) {
         console.log("Error", err);
+        let status = 500
+
+        if (err.name === 'TopicNotFoundError') {
+            status = 404
+        }
+
         response = {
-            statusCode: 500,
+            statusCode: status,
             body: JSON.stringify({ name: err.name, message: err.message })
         }
     }

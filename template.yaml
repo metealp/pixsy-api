@@ -45,7 +45,7 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /{id}
+            Path: /{topic_name}
             Method: GET
 
   searchPhotosFunction:

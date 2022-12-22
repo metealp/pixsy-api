@@ -1,16 +1,8 @@
-# The AWSTemplateFormatVersion identifies the capabilities of the template
-# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
   pixsy-api
-
-# Transform section specifies one or more macros that AWS CloudFormation uses to process your template
-# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
 Transform:
 - AWS::Serverless-2016-10-31
-
-# Resources declares the AWS resources that you want to include in the stack
-# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
   getCollectionsFunction:
     Type: AWS::Serverless::Function
@@ -47,24 +39,6 @@ Resources:
           Properties:
             Path: /{topic_name}
             Method: GET
-
-  searchPhotosFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: src/handlers/search-photos.searchPhotosHandler
-      Runtime: nodejs18.x
-      Architectures:
-      - x86_64
-      MemorySize: 128
-      Timeout: 100
-      Description: A simple example includes a HTTP post method to add one item to
-        a DynamoDB table.
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            Path: /
-            Method: POST
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group

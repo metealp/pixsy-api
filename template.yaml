@@ -4,6 +4,25 @@ Description: >-
 Transform:
 - AWS::Serverless-2016-10-31
 Resources:
+  pixsyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: "Prod"
+      Cors: 
+        AllowMethods: "'GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH'"
+        AllowOrigin: "'*'"
+        MaxAge: "'1200'"
+        AllowHeaders: "'Content-Type, Authorization'"
+      MethodSettings:
+        - CachingEnabled: true
+        - ResourcePath: /
+          HttpMethod: GET
+          CachingEnabled: true
+          CacheTtlInSeconds: 300
+        - ResourcePath: /{topic_name}
+          HttpMethod: GET
+          CachingEnabled: true
+          CacheTtlInSeconds: 300
   getCollectionsFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -12,7 +31,7 @@ Resources:
       Architectures:
       - x86_64
       MemorySize: 512
-      Timeout: 1000
+      Timeout: 900
       Description: A simple example includes a HTTP get method to get all items from
         a DynamoDB table.
       Events:
@@ -29,8 +48,8 @@ Resources:
       Runtime: nodejs18.x
       Architectures:
       - x86_64
-      MemorySize: 128
-      Timeout: 100
+      MemorySize: 512
+      Timeout: 900
       Description: A simple example includes a HTTP get method to get one item by
         id from a DynamoDB table.
       Events:

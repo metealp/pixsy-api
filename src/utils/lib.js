@@ -4,7 +4,7 @@ const { TopicNotFoundError } = require('./error')
 
 
 
-const readAllPhotos = () => {
+const readAllTopics = () => {
     const photos = photosObj.photos
 
     let collections = []
@@ -52,4 +52,4 @@ const readATopicPhotos = (topicName) => {
     return topicCollection
 }
 
-module.exports = { readAllPhotos, readATopicPhotos }
+module.exports = { readAllTopics, readATopicPhotos }

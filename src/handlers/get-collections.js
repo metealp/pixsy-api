@@ -1,4 +1,4 @@
-const { readAllPhotos } = require('../utils/lib')
+const { readAllTopics } = require('../utils/lib')
 
 exports.getCollectionsHandler = async (event) => {
     if (event.httpMethod !== 'GET') {
@@ -9,10 +9,10 @@ exports.getCollectionsHandler = async (event) => {
     let response = {}
 
     try {
-        collections = readAllPhotos()
+        topics = readAllTopics()
         response = {
             statusCode: 200,
-            body: JSON.stringify({ collections })
+            body: JSON.stringify({ topics })
         }
     } catch (err) {
         console.log("Error", err);

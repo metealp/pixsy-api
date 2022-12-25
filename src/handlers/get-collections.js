@@ -12,12 +12,22 @@ exports.getCollectionsHandler = async (event) => {
         topics = readAllTopics()
         response = {
             statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS, GET, HEAD',
+            },
             body: JSON.stringify({ topics })
         }
     } catch (err) {
         console.log("Error", err);
         response = {
             statusCode: 500,
+            headers: {
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS, GET, HEAD',
+            },
             body: JSON.stringify({ name: err.name, message: err.message })
         }
     }

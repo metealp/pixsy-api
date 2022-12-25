@@ -14,6 +14,11 @@ exports.getPhotosInACollectionHandler = async (event) => {
         photos = readATopicPhotos(event.pathParameters.topic_name)
         response = {
             statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS, GET, HEAD',
+            },
             body: JSON.stringify({ photos })
         }
     } catch (err) {
@@ -26,6 +31,11 @@ exports.getPhotosInACollectionHandler = async (event) => {
 
         response = {
             statusCode: status,
+            headers: {
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS, GET, HEAD',
+            },
             body: JSON.stringify({ name: err.name, message: err.message })
         }
     }

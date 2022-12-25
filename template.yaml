@@ -12,7 +12,7 @@ Resources:
         AllowMethods: "'GET, HEAD, OPTIONS'"
         AllowOrigin: "'*'"
         MaxAge: "'1200'"
-        AllowHeaders: "'Content-Type, Authorization'"
+        AllowHeaders: "'Content-Type'"
       MethodSettings:
         - ResourcePath: /
           HttpMethod: GET

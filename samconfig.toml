@@ -3,11 +3,10 @@ version = 0.1
 [default.deploy]
 [default.deploy.parameters]
 stack_name = "pixsy-api"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-ltqf5y0ancp3"
-s3_prefix = "pixsy-api"
+s3_bucket = "pixsy-bucket"
 region = "eu-central-1"
 profile = "personal"
-confirm_changeset = true
+confirm_changeset = false
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
 disable_rollback = true

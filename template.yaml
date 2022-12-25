@@ -9,17 +9,16 @@ Resources:
     Properties:
       StageName: "Prod"
       Cors: 
-        AllowMethods: "'GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH'"
+        AllowMethods: "'GET, HEAD, OPTIONS'"
         AllowOrigin: "'*'"
         MaxAge: "'1200'"
         AllowHeaders: "'Content-Type, Authorization'"
       MethodSettings:
-        - CachingEnabled: true
         - ResourcePath: /
           HttpMethod: GET
           CachingEnabled: true
           CacheTtlInSeconds: 300
-        - ResourcePath: /{topic_name}
+        - ResourcePath: /topic/{topic_name}
           HttpMethod: GET
           CachingEnabled: true
           CacheTtlInSeconds: 300
@@ -38,6 +37,7 @@ Resources:
         Api:
           Type: Api
           Properties:
+            RestApiId: !Ref pixsyApi
             Path: /
             Method: GET
 
@@ -56,30 +56,10 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /{topic_name}
+            RestApiId: !Ref pixsyApi
+            Path: /topic/{topic_name}
             Method: GET
-
-  ApplicationResourceGroup:
-    Type: AWS::ResourceGroups::Group
-    Properties:
-      Name:
-        Fn::Join:
-        - ''
-        - - ApplicationInsights-SAM-
-          - Ref: AWS::StackName
-      ResourceQuery:
-        Type: CLOUDFORMATION_STACK_1_0
-  ApplicationInsightsMonitoring:
-    Type: AWS::ApplicationInsights::Application
-    Properties:
-      ResourceGroupName:
-        Fn::Join:
-        - ''
-        - - ApplicationInsights-SAM-
-          - Ref: AWS::StackName
-      AutoConfigurationEnabled: 'true'
-    DependsOn: ApplicationResourceGroup
 Outputs:
   WebEndpoint:
     Description: API Gateway endpoint URL for Prod stage
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    Value: !Sub "https://${pixsyApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

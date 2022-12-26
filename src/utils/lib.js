@@ -25,7 +25,7 @@ const readAllTopics = () => {
         for (let topic of photo.topics) {
             const indexOfTopic = topicsDict[topic]
             collections[indexOfTopic].len += 1
-            if (collections[indexOfTopic].len < 5) {
+            if (collections[indexOfTopic].len <= 5) {
                 collections[indexOfTopic].thumbnails.push(photo.url)
             }
         }
